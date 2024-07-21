@@ -18,7 +18,16 @@ namespace QuizMaker
 
         public XmlService(string path)
         {
-
+            if (!File.Exists(path))
+            {
+                new XDocument(new XElement("Quiz",
+                    new XElement("Item",
+                        new XElement("Question", "why?"),
+                        new XElement("Answer", "kaha."))))
+                    .Save(path);
+                return;
+            }
+            else
             this.path = path;
             active = XDocument.Load(path);
         }
@@ -26,8 +35,8 @@ namespace QuizMaker
         public List<QuesAndAns> GetListOfQuesAndAns()
         {
             return (from qa in active.Elements()
-                   select new QuesAndAns(qa.Element("Question").Value,
-                   qa.Element("Answer").Value)).ToList();
+                    select new QuesAndAns(qa.Element("Question").Value,
+                    qa.Element("Answer").Value)).ToList();
         }
 
         public void AddQuesAndAnsToXML(QuesAndAns qa)

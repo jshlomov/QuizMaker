@@ -13,6 +13,7 @@
             {
                 Console.WriteLine("1. Create questions\n2. Answer Questions\nExit -1");
                 input = int.Parse(Console.ReadLine());
+
                 switch (input)
                 {
                     case 1:
@@ -53,6 +54,8 @@
                             }
                         }
                         break;
+
+
                     default:
                         break;
                 }
