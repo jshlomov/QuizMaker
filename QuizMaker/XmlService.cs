@@ -33,6 +33,7 @@ namespace QuizMaker
             active.Root.Add(new XElement("QuesAndAns", 
                 new XElement("Question", quesAndAns.Question), 
                 new XElement("Answer", quesAndAns.Answer)));
+            active.Save(path);
         }
 
 
