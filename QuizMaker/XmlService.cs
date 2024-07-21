@@ -14,12 +14,13 @@ namespace QuizMaker
     public class XmlService
     {
         string path;
-        public XElement active;
+        public XDocument active;
 
         public XmlService(string path)
         {
+
             this.path = path;
-            active = XElement.Load(path);
+            active = XDocument.Load(path);
         }
 
         public List<QuesAndAns> GetListOfQuesAndAns()
