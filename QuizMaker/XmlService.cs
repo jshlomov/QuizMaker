@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,29 +14,27 @@ namespace QuizMaker
     public class XmlService
     {
         string path;
-        public XDocument active;
+        public XElement active;
 
         public XmlService(string path)
         {
             this.path = path;
-            active = XDocument.Load(path);
+            active = XElement.Load(path);
         }
 
         public List<QuesAndAns> GetListOfQuesAndAns()
         {
-            return (from c in active.Root.Descendants("QuesAndAns")
-                   select (new QuesAndAns(c.Element("Question").Value,
-                          c.Element("Answer").Value))).ToList<QuesAndAns>();
+            return (from qa in active.Elements()
+                   select new QuesAndAns(qa.Element("Question").Value,
+                   qa.Element("Answer").Value)).ToList();
         }
 
-        public void AddQuesAndAnsToXML(QuesAndAns quesAndAns)
+        public void AddQuesAndAnsToXML(QuesAndAns qa)
         {
-            active.Root.Add(new XElement("QuesAndAns", 
-                new XElement("Question", quesAndAns.Question), 
-                new XElement("Answer", quesAndAns.Answer)));
+            active.Add(new XElement("Item",
+                new XElement("Question", qa.Question),
+                new XElement("Answer", qa.Answer)));
             active.Save(path);
         }
-
-
     }
 }
