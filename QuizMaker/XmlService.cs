@@ -19,6 +19,8 @@ namespace QuizMaker
         public XmlService(string path)
         {
             this.path = path;
+
+            //Create the file if not exists
             if (!File.Exists(path))
             {
                 new XDocument(new XElement("Quiz",
@@ -32,7 +34,11 @@ namespace QuizMaker
             active = XDocument.Load(path);
         }
 
-        public List<QuesAndAns> GetListOfQuesAndAns()
+        /// <summary>
+        /// Get the list of question and answers from the xml file
+        /// </summary>
+        /// <returns>a list of QuesAndAns the contaun all the items. else return null</returns>
+        public List<QuesAndAns>? GetListOfQuesAndAns()
         {
             return (from qa in active.Root.Elements()
                     select new QuesAndAns(qa.Element("Question").Value,

@@ -26,7 +26,7 @@
 
 
                     case 2:
-                        List<QuesAndAns> list = xml.GetListOfQuesAndAns();
+                        List<QuesAndAns>? list = xml.GetListOfQuesAndAns();
                         int i = 1;
 
                         foreach (var item in list)
@@ -35,9 +35,9 @@
                         }
 
                         Console.WriteLine("Choose question");
-                        int index = int.Parse(Console.ReadLine());
+                        int index = int.Parse(Console.ReadLine()!);
                         Console.WriteLine("What is your answer (to exit press 0)");
-                        string secInput = Console.ReadLine();
+                        string secInput = Console.ReadLine()!;
 
 
                         while (secInput != "0")
@@ -45,7 +45,7 @@
                             if (secInput != list[index - 1].Answer)
                             {
                                 Console.WriteLine("incorrect");
-                                secInput = Console.ReadLine();
+                                secInput = Console.ReadLine()!;
                             }
                             else
                             {
