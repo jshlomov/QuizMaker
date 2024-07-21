@@ -18,6 +18,7 @@ namespace QuizMaker
 
         public XmlService(string path)
         {
+            this.path = path;
             if (!File.Exists(path))
             {
                 new XDocument(new XElement("Quiz",
@@ -28,23 +29,22 @@ namespace QuizMaker
                 return;
             }
             else
-            this.path = path;
             active = XDocument.Load(path);
         }
 
         public List<QuesAndAns> GetListOfQuesAndAns()
         {
-            return (from qa in active.Elements()
+            return (from qa in active.Root.Elements()
                     select new QuesAndAns(qa.Element("Question").Value,
                     qa.Element("Answer").Value)).ToList();
         }
 
         public void AddQuesAndAnsToXML(QuesAndAns qa)
         {
-            active.Add(new XElement("Item",
+            active.Root.Add(new XElement("Item",
                 new XElement("Question", qa.Question),
                 new XElement("Answer", qa.Answer)));
-            active.Save(path);
+            active.Root.Save(path);
         }
     }
 }
